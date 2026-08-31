@@ -1,0 +1,889 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #176b48 0%,
+            #083b28 45%,
+            #020d08 100%
+        );
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   TELAS
+===================================================== */
+
+.tela {
+    display: none;
+
+    width: 100%;
+    height: 100vh;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    padding: 30px;
+}
+
+.tela.ativa {
+    display: flex;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    font-size: clamp(55px, 8vw, 100px);
+    font-weight: 900;
+
+    letter-spacing: -5px;
+
+    line-height: .9;
+
+    text-shadow:
+        0 0 15px rgba(255,255,255,.35),
+        0 0 35px rgba(66,255,155,.45);
+}
+
+.logo span {
+    color: white;
+}
+
+.logo strong {
+    color: #42ff9b;
+}
+
+.logo.pequeno {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.mega-show {
+    color: #42ff9b;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    letter-spacing: 8px;
+
+    margin: 15px 0 30px;
+}
+
+
+/* =====================================================
+   CADASTRO
+===================================================== */
+
+.painel-cadastro {
+    width: min(720px, 95%);
+
+    padding: 35px;
+
+    background: rgba(0,0,0,.45);
+
+    border: 1px solid rgba(66,255,155,.65);
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 0 40px rgba(0,0,0,.35),
+        0 0 25px rgba(66,255,155,.12);
+}
+
+.painel-cadastro h1 {
+    text-align: center;
+
+    font-size: 25px;
+
+    margin-bottom: 8px;
+}
+
+.painel-cadastro > p {
+    text-align: center;
+
+    color: #a9cabb;
+
+    margin-bottom: 25px;
+}
+
+.lista-inputs {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 13px;
+}
+
+.lista-inputs input {
+    width: 100%;
+
+    padding: 16px;
+
+    border: 2px solid #267d59;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.96);
+
+    color: #062419;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+.lista-inputs input:focus {
+    border-color: #42ff9b;
+
+    box-shadow:
+        0 0 15px rgba(66,255,155,.5);
+}
+
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
+.botao {
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 17px 30px;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        opacity .18s ease;
+}
+
+.botao:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.botao:active:not(:disabled) {
+    transform: scale(.98);
+}
+
+.botao:disabled {
+    opacity: .3;
+
+    cursor: not-allowed;
+}
+
+.principal {
+    background: #42ff9b;
+
+    color: #032015;
+
+    box-shadow:
+        0 0 25px rgba(66,255,155,.3);
+}
+
+.painel-cadastro .botao {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 25px;
+}
+
+
+/* =====================================================
+   DUPLAS
+===================================================== */
+
+.titulo-rodada {
+    color: #42ff9b;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 12px;
+}
+
+.tela > h2 {
+    font-size: 30px;
+
+    text-align: center;
+
+    margin-bottom: 8px;
+}
+
+.instrucao {
+    color: #a9cabb;
+
+    margin-bottom: 20px;
+}
+
+.duplas-container {
+    width: min(950px, 95%);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin: 10px 0 25px;
+}
+
+.dupla {
+    padding: 25px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.09),
+            rgba(0,0,0,.35)
+        );
+
+    border: 1px solid rgba(66,255,155,.55);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 20px rgba(0,0,0,.2);
+}
+
+.dupla h3 {
+    color: #42ff9b;
+
+    font-size: 15px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 15px;
+}
+
+.dupla p {
+    font-size: 22px;
+
+    font-weight: 900;
+
+    margin: 5px;
+}
+
+.dupla p:nth-of-type(2) {
+    color: #42ff9b;
+
+    font-size: 17px;
+}
+
+
+/* =====================================================
+   TOPO DO JOGO
+===================================================== */
+
+.topo {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 16px 30px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
+    align-items: center;
+
+    background: rgba(0,0,0,.45);
+
+    border-bottom:
+        1px solid rgba(66,255,155,.25);
+}
+
+.mini-logo {
+    font-size: 23px;
+
+    font-weight: 900;
+}
+
+.mini-logo strong {
+    color: #42ff9b;
+}
+
+.rodada-topo {
+    text-align: center;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.cronometro {
+    text-align: right;
+
+    font-size: 42px;
+
+    font-weight: 900;
+
+    color: #42ff9b;
+}
+
+.cronometro.urgente {
+    color: #ff5757;
+
+    animation:
+        piscar .5s infinite alternate;
+}
+
+@keyframes piscar {
+
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: .35;
+    }
+
+}
+
+
+/* =====================================================
+   JOGO
+===================================================== */
+
+.jogo {
+    width: min(1050px, 95%);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.vez {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 35px;
+
+    margin-bottom: 20px;
+
+    text-align: center;
+}
+
+.box-jogador {
+    min-width: 220px;
+
+    padding: 12px 20px;
+
+    background: rgba(0,0,0,.25);
+
+    border-radius: 15px;
+}
+
+.box-jogador span {
+    color: #a9cabb;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.box-jogador h2 {
+    margin-top: 7px;
+
+    color: #42ff9b;
+
+    font-size: 25px;
+}
+
+.seta {
+    color: #42ff9b;
+
+    font-size: 38px;
+
+    font-weight: 900;
+}
+
+
+/* =====================================================
+   CARTÃO DA PALAVRA
+===================================================== */
+
+.cartao {
+    width: min(850px, 95%);
+
+    min-height: 250px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: white;
+
+    color: #062419;
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 0 35px rgba(255,255,255,.2);
+}
+
+.label {
+    color: #287c58;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+}
+
+.palavra {
+    font-size: clamp(42px, 7vw, 82px);
+
+    font-weight: 900;
+
+    text-align: center;
+
+    margin-top: 14px;
+}
+
+
+/* =====================================================
+   PLACAR
+===================================================== */
+
+.placar {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 90px;
+
+    margin: 18px;
+
+    text-align: center;
+}
+
+.placar div {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.placar span {
+    color: #a9cabb;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.placar strong {
+    color: #42ff9b;
+
+    font-size: 34px;
+}
+
+
+/* =====================================================
+   AÇÕES
+===================================================== */
+
+.acoes {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+}
+
+.acoes .botao {
+    min-width: 220px;
+}
+
+.acertou {
+    background: #42ff9b;
+
+    color: #032015;
+
+    box-shadow:
+        0 0 20px rgba(66,255,155,.2);
+}
+
+.pular {
+    background: #f5c542;
+
+    color: #241c00;
+
+    box-shadow:
+        0 0 20px rgba(245,197,66,.15);
+}
+
+
+/* =====================================================
+   PAUSAS
+===================================================== */
+
+.pausa-tela {
+    background:
+        radial-gradient(
+            circle,
+            rgba(23,107,72,.9),
+            rgba(2,13,8,.98)
+        );
+}
+
+.pausa-card {
+    width: min(720px, 94%);
+
+    padding: 42px;
+
+    text-align: center;
+
+    background: rgba(0,0,0,.48);
+
+    border: 2px solid #42ff9b;
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 0 45px rgba(66,255,155,.15);
+}
+
+.pausa-icone {
+    font-size: 55px;
+
+    margin-bottom: 10px;
+}
+
+.pausa-titulo {
+    color: #42ff9b;
+
+    font-size: 35px;
+
+    font-weight: 900;
+}
+
+.pausa-subtitulo {
+    font-size: 19px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+
+    margin-top: 7px;
+
+    color: white;
+}
+
+.troca-info {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 30px;
+
+    margin: 35px 0 20px;
+}
+
+.troca-info div {
+    min-width: 180px;
+
+    padding: 18px;
+
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.07);
+}
+
+.troca-info span,
+.dupla-finalizada span,
+.proxima-dupla span {
+    display: block;
+
+    color: #a9cabb;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+}
+
+.troca-info strong,
+.dupla-finalizada strong,
+.proxima-dupla strong {
+    display: block;
+
+    color: white;
+
+    font-size: 21px;
+}
+
+.troca-seta {
+    color: #42ff9b;
+
+    font-size: 35px;
+}
+
+.pausa-card p {
+    color: #b8daca;
+
+    margin: 20px 0 25px;
+}
+
+.dupla-finalizada,
+.proxima-dupla {
+    margin: 18px auto;
+
+    padding: 18px;
+
+    max-width: 450px;
+
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.07);
+}
+
+.proxima-dupla {
+    border: 1px solid rgba(66,255,155,.4);
+}
+
+.pausa-card .botao {
+    margin-top: 20px;
+}
+
+
+/* =====================================================
+   RESULTADO
+===================================================== */
+
+.resultado-container {
+    width: min(650px, 95%);
+
+    margin: 20px 0;
+}
+
+.resultado-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 15px 20px;
+
+    margin: 8px 0;
+
+    background: rgba(255,255,255,.07);
+
+    border-radius: 12px;
+
+    font-weight: 900;
+}
+
+.resultado-item strong {
+    color: #42ff9b;
+}
+
+.resultado-item.eliminado {
+    border: 2px solid #ff4f4f;
+
+    color: #ff7070;
+}
+
+.resultado-item.eliminado strong {
+    color: #ff7070;
+}
+
+.mensagem-eliminacao {
+    color: #ff5757;
+
+    font-size: 23px;
+
+    font-weight: 900;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   CAMPEÃO
+===================================================== */
+
+.confetes {
+    font-size: 48px;
+
+    margin-bottom: 10px;
+}
+
+.titulo-campeao {
+    color: #42ff9b;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    margin-top: 25px;
+}
+
+.campeao-nome {
+    font-size: clamp(50px, 8vw, 100px);
+
+    font-weight: 900;
+
+    margin: 20px;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 30px #42ff9b;
+}
+
+.trofeu {
+    font-size: 100px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media (max-width: 750px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .tela {
+        min-height: 100vh;
+
+        height: auto;
+
+        padding: 25px 15px;
+    }
+
+    .lista-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .duplas-container {
+        grid-template-columns: 1fr;
+    }
+
+    .topo {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .rodada-topo {
+        display: none;
+    }
+
+    .cronometro {
+        font-size: 30px;
+    }
+
+    .vez {
+        gap: 10px;
+    }
+
+    .box-jogador {
+        min-width: 0;
+
+        width: 42%;
+    }
+
+    .box-jogador h2 {
+        font-size: 18px;
+    }
+
+    .cartao {
+        min-height: 200px;
+    }
+
+    .placar {
+        gap: 50px;
+    }
+
+    .acoes {
+        flex-direction: column;
+
+        width: 90%;
+    }
+
+    .acoes .botao {
+        width: 100%;
+    }
+
+    .troca-info {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .troca-seta {
+        transform: rotate(90deg);
+    }
+
+    .pausa-card {
+        padding: 28px 18px;
+    }
+
+    .pausa-titulo {
+        font-size: 27px;
+    }
+
+}
+
+
