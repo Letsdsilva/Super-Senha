@@ -1,356 +1,611 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MEGA SENHA - MEGA SHOW</title>
-<link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mega Senha / Mega Show</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-<section id="inicioTela" class="tela ativa">
-  <div class="container cadastro-container">
 
-    <h1>🎤 MEGA SENHA</h1>
-    <h2>MEGA SHOW</h2>
+    <!-- =====================================================
+         TELA INICIAL
+    ===================================================== -->
 
-    <p class="subtitulo">Cadastre os 6 participantes</p>
+    <section
+        id="telaInicial"
+        class="tela ativa"
+    >
 
-    <div class="participantes">
+        <div class="painel-cadastro">
 
-      <div class="campo">
-        <label>Participante 1</label>
-        <input id="nome1" type="text" placeholder="Digite o nome">
-      </div>
+            <div class="logo">
 
-      <div class="campo">
-        <label>Participante 2</label>
-        <input id="nome2" type="text" placeholder="Digite o nome">
-      </div>
+                <span>MEGA</span>
 
-      <div class="campo">
-        <label>Participante 3</label>
-        <input id="nome3" type="text" placeholder="Digite o nome">
-      </div>
+                <strong>SENHA</strong>
 
-      <div class="campo">
-        <label>Participante 4</label>
-        <input id="nome4" type="text" placeholder="Digite o nome">
-      </div>
+            </div>
 
-      <div class="campo">
-        <label>Participante 5</label>
-        <input id="nome5" type="text" placeholder="Digite o nome">
-      </div>
 
-      <div class="campo">
-        <label>Participante 6</label>
-        <input id="nome6" type="text" placeholder="Digite o nome">
-      </div>
+            <div class="mega-show">
+                MEGA SHOW
+            </div>
 
-    </div>
 
-    <div class="regra-duplas">
+            <h1>
+                CADASTRE OS 6 PARTICIPANTES
+            </h1>
 
-      <h3>🔒 DUPLAS FIXAS</h3>
 
-      <p>Dupla 1 → Participante 1 + Participante 2</p>
-      <p>Dupla 2 → Participante 3 + Participante 4</p>
-      <p>Dupla 3 → Participante 5 + Participante 6</p>
+            <p>
+                As duplas serão fixas durante todo o jogo.
+            </p>
 
-      <small>
-        As duplas não serão misturadas durante o jogo.
-      </small>
 
-    </div>
+            <div class="lista-inputs">
 
-    <button id="btnComecar" class="botao-principal">
-      COMEÇAR JOGO
-    </button>
+                <input
+                    id="nome1"
+                    type="text"
+                    placeholder="Participante 1"
+                >
 
-  </div>
-</section>
+                <input
+                    id="nome2"
+                    type="text"
+                    placeholder="Participante 2"
+                >
 
+                <input
+                    id="nome3"
+                    type="text"
+                    placeholder="Participante 3"
+                >
 
-<section id="duplasTela" class="tela">
+                <input
+                    id="nome4"
+                    type="text"
+                    placeholder="Participante 4"
+                >
 
-  <div class="container">
+                <input
+                    id="nome5"
+                    type="text"
+                    placeholder="Participante 5"
+                >
 
-    <h1>👥 DUPLAS</h1>
+                <input
+                    id="nome6"
+                    type="text"
+                    placeholder="Participante 6"
+                >
 
-    <h2>
-      RODADA <span id="numeroRodada">1</span>
-    </h2>
+            </div>
 
-    <p class="subtitulo">
-      As duplas permanecem fixas durante todo o jogo.
-    </p>
 
-    <div id="duplasContainer" class="duplas-container"></div>
+            <button
+                id="btnComecar"
+                class="botao principal"
+            >
+                COMEÇAR JOGO
+            </button>
 
-    <button id="btnComecarRodada" class="botao-principal">
-      COMEÇAR RODADA
-    </button>
-
-  </div>
-
-</section>
-
-
-<section id="jogoTela" class="tela">
-
-  <div class="container jogo-container">
-
-    <div class="topo-jogo">
-
-      <div>
-        RODADA
-        <strong id="rodadaTopo">1</strong>
-      </div>
-
-      <div>
-        <strong id="nomeDuplaAtual">DUPLA 1</strong>
-      </div>
-
-    </div>
-
-
-    <div class="funcoes">
-
-      <div class="funcao pista">
-        <span>🎤 DÁ A PISTA</span>
-        <strong id="jogadorPista">-</strong>
-      </div>
-
-      <div class="funcao adivinha">
-        <span>🤔 ADIVINHA</span>
-        <strong id="jogadorAdivinha">-</strong>
-      </div>
-
-    </div>
-
-
-    <div id="cronometro" class="cronometro">
-      01:00
-    </div>
-
-
-    <div class="palavra-area">
-
-      <span class="titulo-palavra">
-        PALAVRA
-      </span>
-
-      <div id="palavra" class="palavra">
-        ---
-      </div>
-
-    </div>
-
-
-    <div class="placar-jogo">
-
-      <div>
-        <span>PONTOS DA DUPLA</span>
-        <strong id="acertos">0</strong>
-      </div>
-
-      <div>
-        <span>PULOS</span>
-        <strong id="pulos">0</strong>
-      </div>
-
-    </div>
-
-
-    <div class="botoes-jogo">
-
-      <button id="btnAcertou" class="btn-acertou">
-        ✅ ACERTOU
-      </button>
-
-      <button id="btnPular" class="btn-pular">
-        ⏭️ PULAR
-      </button>
-
-      <button id="btnAnular" class="btn-anular">
-        🚫 PALAVRA ANULADA
-      </button>
-
-    </div>
-
-
-    <div class="regras-jogo">
-
-      <p>
-        <strong>🚫 Palavra anulada:</strong>
-        não vale ponto e não conta como pulo.
-      </p>
-
-      <p>
-        Você pode trocar a palavra e continuar jogando.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section id="trocaDuplaTela" class="tela">
-
-  <div class="container">
-
-    <h1>🔄 TROCA DE FUNÇÃO</h1>
-
-    <div class="troca-card">
-
-      <p>
-        Agora é hora de trocar as funções!
-      </p>
-
-      <div class="troca-info">
-
-        <div>
-          <span>Deixa de adivinhar:</span>
-          <strong id="jogadorSai">-</strong>
         </div>
 
-        <div class="seta">
-          ↕
+    </section>
+
+
+
+    <!-- =====================================================
+         DUPLAS
+    ===================================================== -->
+
+    <section
+        id="duplasTela"
+        class="tela"
+    >
+
+        <div class="titulo-rodada">
+
+            RODADA
+
+            <span id="numeroRodada">
+                1
+            </span>
+
         </div>
 
-        <div>
-          <span>Agora dá a pista:</span>
-          <strong id="jogadorEntra">-</strong>
+
+        <h2>
+            DUPLAS FIXAS
+        </h2>
+
+
+        <p class="instrucao">
+
+            1 + 2
+            &nbsp; | &nbsp;
+            3 + 4
+            &nbsp; | &nbsp;
+            5 + 6
+
+        </p>
+
+
+        <div
+            id="duplasContainer"
+            class="duplas-container"
+        ></div>
+
+
+        <button
+            id="btnComecarRodada"
+            class="botao principal"
+        >
+            COMEÇAR RODADA
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         JOGO
+    ===================================================== -->
+
+    <section
+        id="jogoTela"
+        class="tela"
+    >
+
+
+        <div class="topo">
+
+
+            <div class="mini-logo">
+
+                MEGA
+
+                <strong>
+                    SENHA
+                </strong>
+
+            </div>
+
+
+            <div class="rodada-topo">
+
+                RODADA
+
+                <span id="rodadaTopo">
+                    1
+                </span>
+
+            </div>
+
+
+            <div
+                id="cronometro"
+                class="cronometro"
+            >
+                01:00
+            </div>
+
+
         </div>
 
-      </div>
-
-      <p id="mensagemTroca">
-        Agora troquem as funções.
-      </p>
-
-      <button id="btnTrocarTurno" class="botao-principal">
-        COMEÇAR SEGUNDO TURNO
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
 
 
-<section id="trocaProximaDuplaTela" class="tela">
-
-  <div class="container">
-
-    <h1>🎯 PRÓXIMA DUPLA</h1>
-
-    <div class="troca-card">
-
-      <p>
-        Dupla que terminou:
-      </p>
-
-      <h3 id="duplaAnterior">
-        -
-      </h3>
-
-      <hr>
-
-      <p>
-        Próxima:
-      </p>
-
-      <h2 id="proximaDupla">
-        -
-      </h2>
-
-      <button id="btnProximaDupla" class="botao-principal">
-        INICIAR PRÓXIMA DUPLA
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
+        <div class="jogo">
 
 
-<section id="resultadoTela" class="tela">
-
-  <div class="container">
-
-    <h1>🏆 RESULTADO</h1>
-
-    <h2>
-      RODADA
-      <span id="numeroRodadaResultado">1</span>
-    </h2>
-
-    <div
-      id="resultadoContainer"
-      class="resultado-container">
-    </div>
-
-    <p
-      id="mensagemResultado"
-      class="mensagem-resultado">
-    </p>
-
-    <button
-      id="btnContinuar"
-      class="botao-principal">
-      PRÓXIMA RODADA
-    </button>
-
-  </div>
-
-</section>
+            <div class="vez">
 
 
-<section id="campeaoTela" class="tela">
+                <div class="box-jogador">
 
-  <div class="container campeao-container">
+                    <span>
+                        DÁ A PISTA
+                    </span>
 
-    <div class="trofeu">
-      🏆
-    </div>
+                    <h2 id="jogadorPista">
+                        -
+                    </h2>
 
-    <h1>
-      CAMPEÃO!
-    </h1>
-
-    <h2 id="campeaoNome">
-      DUPLA
-    </h2>
-
-    <p id="campeaoIntegrantes">
-      -
-    </p>
-
-    <div
-      id="campeaoPontos"
-      class="campeao-pontos">
-      0 PONTOS
-    </div>
-
-    <button
-      id="btnNovoJogo"
-      class="botao-principal">
-      🔄 NOVO JOGO
-    </button>
-
-  </div>
-
-</section>
+                </div>
 
 
-<script src="script.js"></script>
+                <div class="seta">
+                    →
+                </div>
+
+
+                <div class="box-jogador">
+
+                    <span>
+                        ADIVINHA
+                    </span>
+
+                    <h2 id="jogadorAdivinha">
+                        -
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="cartao">
+
+
+                <span class="label">
+                    PALAVRA
+                </span>
+
+
+                <strong
+                    id="palavra"
+                    class="palavra"
+                >
+                    ---
+                </strong>
+
+
+                <span
+                    id="categoria"
+                    class="label"
+                    style="margin-top:14px; letter-spacing:1px; font-size:11px;"
+                ></span>
+
+
+            </div>
+
+
+
+            <div class="placar">
+
+
+                <div>
+
+                    <span>
+                        ACERTOS
+                    </span>
+
+                    <strong id="acertos">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        PULOS
+                    </span>
+
+                    <strong id="pulos">
+                        0
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="acoes">
+
+
+                <button
+                    id="btnAcertou"
+                    class="botao acertou"
+                >
+                    ✅ ACERTOU
+                </button>
+
+
+                <button
+                    id="btnPular"
+                    class="botao pular"
+                >
+                    ⏭️ PULAR
+                </button>
+
+
+                <button
+                    id="btnAnular"
+                    class="botao principal"
+                >
+                    🚫 PALAVRA ANULADA
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TROCA DE FUNÇÃO
+    ===================================================== -->
+
+    <section
+        id="trocaDuplaTela"
+        class="tela pausa-tela"
+    >
+
+
+        <div class="pausa-card">
+
+
+            <div class="pausa-icone">
+                🔄
+            </div>
+
+
+            <div class="pausa-titulo">
+                TROCA DE FUNÇÃO
+            </div>
+
+
+            <div class="pausa-subtitulo">
+                MESMA DUPLA
+            </div>
+
+
+
+            <div class="troca-info">
+
+
+                <div>
+
+                    <span>
+                        AGORA DÁ A PISTA
+                    </span>
+
+                    <strong id="jogadorEntra">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="troca-seta">
+                    ↕
+                </div>
+
+
+                <div>
+
+                    <span>
+                        AGORA ADIVINHA
+                    </span>
+
+                    <strong id="jogadorSai">
+                        -
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <p id="mensagemTroca">
+
+                Agora os jogadores devem trocar de função.
+
+            </p>
+
+
+            <button
+                id="btnTrocarTurno"
+                class="botao principal"
+            >
+                COMEÇAR SEGUNDO TURNO
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PRÓXIMA DUPLA
+    ===================================================== -->
+
+    <section
+        id="trocaProximaDuplaTela"
+        class="tela pausa-tela"
+    >
+
+
+        <div class="pausa-card">
+
+
+            <div class="pausa-icone">
+                🎯
+            </div>
+
+
+            <div class="pausa-titulo">
+                PRÓXIMA DUPLA
+            </div>
+
+
+
+            <div class="dupla-finalizada">
+
+                <span>
+                    DUPLA QUE TERMINOU
+                </span>
+
+                <strong id="duplaAnterior">
+                    -
+                </strong>
+
+            </div>
+
+
+
+            <div class="proxima-dupla">
+
+                <span>
+                    PRÓXIMA DUPLA
+                </span>
+
+                <strong id="proximaDupla">
+                    -
+                </strong>
+
+            </div>
+
+
+            <button
+                id="btnProximaDupla"
+                class="botao principal"
+            >
+                INICIAR PRÓXIMA DUPLA
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RESULTADO
+    ===================================================== -->
+
+    <section
+        id="resultadoTela"
+        class="tela"
+    >
+
+
+        <div class="pausa-card">
+
+
+            <div class="confetes">
+                🏆
+            </div>
+
+
+            <div class="pausa-titulo">
+                RESULTADO
+            </div>
+
+
+            <div
+                id="resultadoContainer"
+                class="resultado-container"
+            ></div>
+
+
+            <h2
+                id="mensagemEliminacao"
+                class="mensagem-eliminacao"
+            ></h2>
+
+
+            <button
+                id="btnContinuar"
+                class="botao principal"
+            >
+                PRÓXIMA RODADA
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CAMPEÃO
+    ===================================================== -->
+
+    <section
+        id="campeaoTela"
+        class="tela"
+    >
+
+
+        <div class="pausa-card">
+
+
+            <div class="trofeu">
+                🏆
+            </div>
+
+
+            <div class="titulo-campeao">
+                DUPLA CAMPEÃ
+            </div>
+
+
+            <div
+                id="campeaoNome"
+                class="campeao-nome"
+            >
+                -
+            </div>
+
+
+            <div
+                id="campeaoPontos"
+                class="pausa-subtitulo"
+            >
+                -
+            </div>
+
+
+            <button
+                id="btnNovoJogo"
+                class="botao principal"
+            >
+                NOVO JOGO
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <script src="script.js"></script>
+
 
 </body>
+
 </html>
