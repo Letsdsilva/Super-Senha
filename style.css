@@ -1,493 +1,887 @@
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html,
-body{
-  width:100%;
-  min-height:100%;
-  font-family:Arial,Helvetica,sans-serif;
-  color:#fff;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #176b48 0%,
+            #083b28 45%,
+            #020d08 100%
+        );
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   TELAS
+===================================================== */
+
+.tela {
+    display: none;
+
+    width: 100%;
+    height: 100vh;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    padding: 30px;
+}
+
+.tela.ativa {
+    display: flex;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    font-size: clamp(55px, 8vw, 100px);
+    font-weight: 900;
+
+    letter-spacing: -5px;
+
+    line-height: .9;
+
+    text-shadow:
+        0 0 15px rgba(255,255,255,.35),
+        0 0 35px rgba(66,255,155,.45);
+}
+
+.logo span {
+    color: white;
+}
+
+.logo strong {
+    color: #42ff9b;
+}
+
+.logo.pequeno {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.mega-show {
+    color: #42ff9b;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    letter-spacing: 8px;
+
+    margin: 15px 0 30px;
+}
+
+
+/* =====================================================
+   CADASTRO
+===================================================== */
+
+.painel-cadastro {
+    width: min(720px, 95%);
+
+    padding: 35px;
+
+    background: rgba(0,0,0,.45);
+
+    border: 1px solid rgba(66,255,155,.65);
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 0 40px rgba(0,0,0,.35),
+        0 0 25px rgba(66,255,155,.12);
+}
+
+.painel-cadastro h1 {
+    text-align: center;
+
+    font-size: 25px;
+
+    margin-bottom: 8px;
 }
+
+.painel-cadastro > p {
+    text-align: center;
 
-body{
-  min-height:100vh;
-  background:
-    radial-gradient(
-      circle at center,
-      #176b48 0%,
-      #083b28 45%,
-      #020d08 100%
-    );
-  overflow-x:hidden;
+    color: #a9cabb;
+
+    margin-bottom: 25px;
 }
+
+.lista-inputs {
+    display: grid;
 
-.tela{
-  display:none;
-  width:100%;
-  min-height:100vh;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  padding:28px 16px;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 13px;
 }
+
+.lista-inputs input {
+    width: 100%;
+
+    padding: 16px;
+
+    border: 2px solid #267d59;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.96);
+
+    color: #062419;
+
+    font-size: 16px;
 
-.tela.ativa{
-  display:flex;
+    outline: none;
 }
 
-.container{
-  width:min(980px,95vw);
-  background:rgba(0,0,0,.42);
-  border:1px solid rgba(66,255,155,.55);
-  border-radius:24px;
-  padding:32px;
-  box-shadow:
-    0 0 40px rgba(0,0,0,.35),
-    0 0 28px rgba(66,255,155,.12);
-  backdrop-filter:blur(6px);
+.lista-inputs input:focus {
+    border-color: #42ff9b;
+
+    box-shadow:
+        0 0 15px rgba(66,255,155,.5);
 }
+
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
+.botao {
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 17px 30px;
+
+    font-size: 17px;
+
+    font-weight: 900;
 
-h1{
-  font-size:clamp(30px,5vw,52px);
-  font-weight:900;
-  text-align:center;
-  letter-spacing:1px;
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        opacity .18s ease;
 }
 
-h2{
-  text-align:center;
-  margin-top:8px;
-  color:#42ff9b;
-  font-size:clamp(20px,3vw,30px);
+.botao:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.02);
 }
 
-.subtitulo{
-  text-align:center;
-  color:#b8d9ca;
-  margin:12px 0 28px;
-  font-size:17px;
+.botao:active:not(:disabled) {
+    transform: scale(.98);
 }
 
-.participantes{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
+.botao:disabled {
+    opacity: .3;
+
+    cursor: not-allowed;
 }
+
+.principal {
+    background: #42ff9b;
 
-.campo{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
+    color: #032015;
+
+    box-shadow:
+        0 0 25px rgba(66,255,155,.3);
 }
+
+.painel-cadastro .botao {
+    display: block;
 
-.campo label{
-  font-weight:800;
-  color:#d9eee5;
+    width: 100%;
+
+    margin-top: 25px;
 }
+
 
-.campo input{
-  width:100%;
-  padding:15px;
-  border:2px solid #267d59;
-  border-radius:12px;
-  background:#fff;
-  color:#062419;
-  font-size:16px;
-  outline:none;
+/* =====================================================
+   DUPLAS
+===================================================== */
+
+.titulo-rodada {
+    color: #42ff9b;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 12px;
 }
+
+.tela > h2 {
+    font-size: 30px;
 
-.campo input:focus{
-  border-color:#42ff9b;
-  box-shadow:0 0 15px rgba(66,255,155,.35);
+    text-align: center;
+
+    margin-bottom: 8px;
 }
+
+.instrucao {
+    color: #a9cabb;
 
-.regra-duplas{
-  margin-top:24px;
-  padding:18px;
-  border:1px solid rgba(66,255,155,.3);
-  border-radius:16px;
-  background:rgba(1,25,16,.55);
+    margin-bottom: 20px;
 }
 
-.regra-duplas h3{
-  color:#42ff9b;
-  margin-bottom:10px;
+.duplas-container {
+    width: min(950px, 95%);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin: 10px 0 25px;
 }
+
+.dupla {
+    padding: 25px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.09),
+            rgba(0,0,0,.35)
+        );
+
+    border: 1px solid rgba(66,255,155,.55);
 
-.regra-duplas p{
-  margin:6px 0;
-  color:#eaf9f2;
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 20px rgba(0,0,0,.2);
 }
+
+.dupla h3 {
+    color: #42ff9b;
+
+    font-size: 15px;
+
+    letter-spacing: 2px;
 
-.regra-duplas small{
-  display:block;
-  color:#9dc5b3;
-  margin-top:10px;
+    margin-bottom: 15px;
 }
 
-.botao-principal{
-  width:100%;
-  margin-top:22px;
-  padding:16px 22px;
-  border:0;
-  border-radius:14px;
-  background:#42ff9b;
-  color:#032015;
-  font-size:17px;
-  font-weight:900;
-  cursor:pointer;
-  box-shadow:0 0 25px rgba(66,255,155,.28);
-  transition:.18s;
+.dupla p {
+    font-size: 22px;
+
+    font-weight: 900;
+
+    margin: 5px;
 }
 
-.botao-principal:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 32px rgba(66,255,155,.4);
+.dupla p:nth-of-type(2) {
+    color: #42ff9b;
+
+    font-size: 17px;
 }
+
 
-.botao-principal:disabled{
-  opacity:.35;
-  cursor:not-allowed;
-  transform:none;
+/* =====================================================
+   TOPO DO JOGO
+===================================================== */
+
+.topo {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 16px 30px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
+    align-items: center;
+
+    background: rgba(0,0,0,.45);
+
+    border-bottom:
+        1px solid rgba(66,255,155,.25);
 }
 
-.duplas-container{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-  margin:28px 0;
+.mini-logo {
+    font-size: 23px;
+
+    font-weight: 900;
 }
 
-.dupla{
-  padding:22px 16px;
-  border:1px solid rgba(66,255,155,.45);
-  border-radius:18px;
-  background:rgba(1,25,16,.58);
-  text-align:center;
-  box-shadow:
-    inset 0 0 25px rgba(66,255,155,.04);
+.mini-logo strong {
+    color: #42ff9b;
 }
+
+.rodada-topo {
+    text-align: center;
 
-.dupla h3{
-  color:#42ff9b;
-  font-size:21px;
-  margin-bottom:14px;
+    font-size: 17px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
 }
+
+.cronometro {
+    text-align: right;
+
+    font-size: 42px;
 
-.dupla p{
-  font-size:18px;
-  margin:7px 0;
-  font-weight:800;
+    font-weight: 900;
+
+    color: #42ff9b;
 }
+
+.cronometro.urgente {
+    color: #ff5757;
 
-.jogo-container{
-  max-width:1050px;
+    animation:
+        piscar .5s infinite alternate;
 }
+
+@keyframes piscar {
+
+    from {
+        opacity: 1;
+    }
 
-.topo-jogo{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  font-size:18px;
-  font-weight:800;
-  color:#cfe9dc;
+    to {
+        opacity: .35;
+    }
+
 }
+
+
+/* =====================================================
+   JOGO
+===================================================== */
+
+.jogo {
+    width: min(1050px, 95%);
 
-.topo-jogo strong{
-  color:#42ff9b;
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
 }
+
+.vez {
+    display: flex;
+
+    align-items: center;
 
-.funcoes{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  margin-top:24px;
+    justify-content: center;
+
+    gap: 35px;
+
+    margin-bottom: 20px;
+
+    text-align: center;
 }
+
+.box-jogador {
+    min-width: 220px;
 
-.funcao{
-  padding:18px;
-  border-radius:16px;
-  text-align:center;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(66,255,155,.32);
+    padding: 12px 20px;
+
+    background: rgba(0,0,0,.25);
+
+    border-radius: 15px;
 }
+
+.box-jogador span {
+    color: #a9cabb;
 
-.funcao span{
-  display:block;
-  color:#a5cbbb;
-  font-weight:800;
-  margin-bottom:8px;
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
 }
+
+.box-jogador h2 {
+    margin-top: 7px;
+
+    color: #42ff9b;
 
-.funcao strong{
-  font-size:22px;
+    font-size: 25px;
 }
 
-.cronometro{
-  text-align:center;
-  font-size:clamp(55px,9vw,92px);
-  font-weight:900;
-  color:#42ff9b;
-  text-shadow:0 0 24px rgba(66,255,155,.3);
-  margin:18px 0;
+.seta {
+    color: #42ff9b;
+
+    font-size: 38px;
+
+    font-weight: 900;
 }
+
+
+/* =====================================================
+   CARTÃO DA PALAVRA
+===================================================== */
+
+.cartao {
+    width: min(850px, 95%);
+
+    min-height: 250px;
+
+    display: flex;
+
+    flex-direction: column;
 
-.cronometro.urgente{
-  color:#fff;
-  text-shadow:0 0 20px rgba(255,255,255,.4);
+    align-items: center;
+
+    justify-content: center;
+
+    background: white;
+
+    color: #062419;
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 0 35px rgba(255,255,255,.2);
 }
+
+.label {
+    color: #287c58;
+
+    font-size: 14px;
+
+    font-weight: 900;
 
-.palavra-area{
-  padding:26px;
-  border-radius:20px;
-  border:2px solid rgba(66,255,155,.45);
-  background:rgba(0,0,0,.25);
-  text-align:center;
+    letter-spacing: 4px;
 }
 
-.titulo-palavra{
-  display:block;
-  color:#b2d3c4;
-  font-size:14px;
-  font-weight:900;
-  letter-spacing:3px;
+.palavra {
+    font-size: clamp(42px, 7vw, 82px);
+
+    font-weight: 900;
+
+    text-align: center;
+
+    margin-top: 14px;
 }
+
+
+/* =====================================================
+   PLACAR
+===================================================== */
+
+.placar {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 90px;
 
-.palavra{
-  margin-top:8px;
-  font-size:clamp(34px,7vw,70px);
-  font-weight:900;
-  color:#fff;
-  letter-spacing:1px;
-  word-break:break-word;
+    margin: 18px;
+
+    text-align: center;
 }
 
-.placar-jogo{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  margin-top:18px;
+.placar div {
+    display: flex;
+
+    flex-direction: column;
 }
+
+.placar span {
+    color: #a9cabb;
 
-.placar-jogo>div{
-  padding:16px;
-  border-radius:16px;
-  background:rgba(1,25,16,.6);
-  border:1px solid rgba(66,255,155,.25);
-  text-align:center;
+    font-size: 13px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
 }
 
-.placar-jogo span{
-  display:block;
-  color:#a5cbbb;
-  font-weight:800;
-  font-size:13px;
+.placar strong {
+    color: #42ff9b;
+
+    font-size: 34px;
 }
+
 
-.placar-jogo strong{
-  display:block;
-  font-size:34px;
-  color:#42ff9b;
-  margin-top:6px;
+/* =====================================================
+   AÇÕES
+===================================================== */
+
+.acoes {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
 }
 
-.botoes-jogo{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:12px;
-  margin-top:18px;
+.acoes .botao {
+    min-width: 220px;
 }
+
+.acertou {
+    background: #42ff9b;
 
-.botoes-jogo button{
-  padding:16px;
-  border:0;
-  border-radius:13px;
-  font-weight:900;
-  font-size:16px;
-  cursor:pointer;
+    color: #032015;
+
+    box-shadow:
+        0 0 20px rgba(66,255,155,.2);
 }
+
+.pular {
+    background: #f5c542;
 
-.btn-acertou{
-  background:#42ff9b;
-  color:#032015;
+    color: #241c00;
+
+    box-shadow:
+        0 0 20px rgba(245,197,66,.15);
 }
+
 
-.btn-pular{
-  background:#d9f6e8;
-  color:#0a3827;
+/* =====================================================
+   PAUSAS
+===================================================== */
+
+.pausa-tela {
+    background:
+        radial-gradient(
+            circle,
+            rgba(23,107,72,.9),
+            rgba(2,13,8,.98)
+        );
 }
+
+.pausa-card {
+    width: min(720px, 94%);
+
+    padding: 42px;
+
+    text-align: center;
 
-.btn-anular{
-  background:#1a5e41;
-  color:#fff;
-  border:1px solid #42ff9b !important;
+    background: rgba(0,0,0,.48);
+
+    border: 2px solid #42ff9b;
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 0 45px rgba(66,255,155,.15);
 }
+
+.pausa-icone {
+    font-size: 55px;
 
-.botoes-jogo button:disabled{
-  opacity:.35;
-  cursor:not-allowed;
+    margin-bottom: 10px;
 }
 
-.regras-jogo{
-  margin-top:16px;
-  padding:14px 16px;
-  border-radius:14px;
-  background:rgba(0,0,0,.22);
-  color:#b8d9ca;
-  font-size:14px;
+.pausa-titulo {
+    color: #42ff9b;
+
+    font-size: 35px;
+
+    font-weight: 900;
 }
+
+.pausa-subtitulo {
+    font-size: 19px;
+
+    font-weight: 900;
 
-.regras-jogo p+p{
-  margin-top:6px;
+    letter-spacing: 4px;
+
+    margin-top: 7px;
+
+    color: white;
 }
+
+.troca-info {
+    display: flex;
+
+    justify-content: center;
 
-.troca-card{
-  margin-top:22px;
-  padding:28px;
-  border-radius:20px;
-  background:rgba(1,25,16,.58);
-  border:1px solid rgba(66,255,155,.35);
-  text-align:center;
+    align-items: center;
+
+    gap: 30px;
+
+    margin: 35px 0 20px;
 }
+
+.troca-info div {
+    min-width: 180px;
 
-.troca-info{
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  gap:16px;
-  align-items:center;
-  margin:24px 0;
+    padding: 18px;
+
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.07);
 }
+
+.troca-info span,
+.dupla-finalizada span,
+.proxima-dupla span {
+    display: block;
+
+    color: #a9cabb;
 
-.troca-info>div{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
 }
+
+.troca-info strong,
+.dupla-finalizada strong,
+.proxima-dupla strong {
+    display: block;
 
-.troca-info span{
-  color:#9dc5b3;
+    color: white;
+
+    font-size: 21px;
 }
+
+.troca-seta {
+    color: #42ff9b;
 
-.troca-info strong{
-  font-size:22px;
-  color:#42ff9b;
+    font-size: 35px;
 }
 
-.seta{
-  font-size:36px;
-  color:#42ff9b !important;
+.pausa-card p {
+    color: #b8daca;
+
+    margin: 20px 0 25px;
 }
+
+.dupla-finalizada,
+.proxima-dupla {
+    margin: 18px auto;
 
-.troca-card hr{
-  border:0;
-  border-top:1px solid rgba(66,255,155,.2);
-  margin:20px 0;
+    padding: 18px;
+
+    max-width: 450px;
+
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.07);
 }
 
-.troca-card h3,
-.troca-card h2{
-  color:#42ff9b;
+.proxima-dupla {
+    border: 1px solid rgba(66,255,155,.4);
 }
 
-.troca-card p{
-  color:#d6eee3;
+.pausa-card .botao {
+    margin-top: 20px;
 }
+
 
-.resultado-container{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin:24px 0;
+/* =====================================================
+   RESULTADO
+===================================================== */
+
+.resultado-container {
+    width: min(650px, 95%);
+
+    margin: 20px 0;
 }
+
+.resultado-item {
+    display: flex;
+
+    justify-content: space-between;
 
-.resultado-item{
-  display:flex;
-  justify-content:space-between;
-  gap:18px;
-  align-items:center;
-  padding:18px;
-  border-radius:15px;
-  border:1px solid rgba(66,255,155,.3);
-  background:rgba(1,25,16,.56);
+    align-items: center;
+
+    padding: 15px 20px;
+
+    margin: 8px 0;
+
+    background: rgba(255,255,255,.07);
+
+    border-radius: 12px;
+
+    font-weight: 900;
 }
 
-.resultado-item strong:last-child{
-  color:#42ff9b;
-  font-size:22px;
+.resultado-item strong {
+    color: #42ff9b;
 }
+
+.resultado-item.eliminado {
+    border: 2px solid #ff4f4f;
 
-.mensagem-resultado{
-  text-align:center;
-  color:#d7eee4;
-  font-weight:800;
-  min-height:24px;
+    color: #ff7070;
 }
 
-.campeao-container{
-  text-align:center;
+.resultado-item.eliminado strong {
+    color: #ff7070;
 }
+
+.mensagem-eliminacao {
+    color: #ff5757;
+
+    font-size: 23px;
 
-.trofeu{
-  font-size:90px;
+    font-weight: 900;
+
+    margin-bottom: 20px;
 }
+
+
+/* =====================================================
+   CAMPEÃO
+===================================================== */
+
+.confetes {
+    font-size: 48px;
 
-.campeao-container h1{
-  color:#42ff9b;
+    margin-bottom: 10px;
 }
+
+.titulo-campeao {
+    color: #42ff9b;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
 
-.campeao-container h2{
-  font-size:clamp(26px,5vw,44px);
-  color:#fff;
+    margin-top: 25px;
 }
 
-.campeao-container p{
-  margin-top:10px;
-  color:#b8d9ca;
-  font-size:18px;
+.campeao-nome {
+    font-size: clamp(50px, 8vw, 100px);
+
+    font-weight: 900;
+
+    margin: 20px;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 30px #42ff9b;
 }
 
-.campeao-pontos{
-  display:inline-block;
-  margin-top:20px;
-  padding:12px 24px;
-  border-radius:30px;
-  background:#42ff9b;
-  color:#032015;
-  font-weight:900;
-  font-size:20px;
+.trofeu {
+    font-size: 100px;
+
+    margin-bottom: 20px;
 }
+
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media (max-width: 750px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .tela {
+        min-height: 100vh;
+
+        height: auto;
+
+        padding: 25px 15px;
+    }
+
+    .lista-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .duplas-container {
+        grid-template-columns: 1fr;
+    }
+
+    .topo {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .rodada-topo {
+        display: none;
+    }
+
+    .cronometro {
+        font-size: 30px;
+    }
+
+    .vez {
+        gap: 10px;
+    }
+
+    .box-jogador {
+        min-width: 0;
+
+        width: 42%;
+    }
+
+    .box-jogador h2 {
+        font-size: 18px;
+    }
+
+    .cartao {
+        min-height: 200px;
+    }
+
+    .placar {
+        gap: 50px;
+    }
+
+    .acoes {
+        flex-direction: column;
 
-@media(max-width:760px){
+        width: 90%;
+    }
 
-  .participantes,
-  .duplas-container,
-  .funcoes,
-  .botoes-jogo{
-    grid-template-columns:1fr;
-  }
+    .acoes .botao {
+        width: 100%;
+    }
 
-  .troca-info{
-    grid-template-columns:1fr;
-  }
+    .troca-info {
+        flex-direction: column;
 
-  .seta{
-    transform:rotate(90deg);
-  }
+        gap: 10px;
+    }
 
-  .topo-jogo{
-    flex-direction:column;
-    text-align:center;
-  }
+    .troca-seta {
+        transform: rotate(90deg);
+    }
 
-  .container{
-    padding:22px;
-  }
+    .pausa-card {
+        padding: 28px 18px;
+    }
 
-  .tela{
-    padding:14px;
-  }
+    .pausa-titulo {
+        font-size: 27px;
+    }
 
 }
