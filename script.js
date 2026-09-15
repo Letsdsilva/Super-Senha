@@ -1,11 +1,15 @@
 /* =====================================================
    MEGA SENHA - MEGA SHOW
-   3 DUPLAS FIXAS | 3 RODADAS
+   6 PARTICIPANTES
+   3 DUPLAS FIXAS
+   3 RODADAS
+   PONTUAÇÃO POR DUPLA
+   PALAVRA ANULADA
 ===================================================== */
 
 
 /* =====================================================
-   PALAVRAS
+   PALAVRAS FÁCEIS
 ===================================================== */
 
 const palavrasFaceis = [
@@ -25,6 +29,10 @@ const palavrasFaceis = [
 ];
 
 
+/* =====================================================
+   PALAVRAS MÉDIAS
+===================================================== */
+
 const palavrasMedias = [
     "AEROPORTO","HOSPITAL","RESTAURANTE","SHOPPING","MERCADO",
     "BIBLIOTECA","CINEMA","TEATRO","ACADEMIA","ESCRITÓRIO",
@@ -43,6 +51,10 @@ const palavrasMedias = [
 ];
 
 
+/* =====================================================
+   PALAVRAS DIFÍCEIS
+===================================================== */
+
 const palavrasDificeis = [
     "CRIATIVIDADE","PERSISTÊNCIA","RESPONSABILIDADE",
     "LIDERANÇA","SUSTENTABILIDADE","TECNOLOGIA","INOVAÇÃO",
@@ -60,131 +72,219 @@ const palavrasDificeis = [
 
 
 /* =====================================================
-   VARIÁVEIS
+   VARIÁVEIS DO JOGO
 ===================================================== */
 
 let jogadores = [];
+
 let duplas = [];
 
 let rodada = 1;
-const totalRodadas = 3;
+
+const TOTAL_RODADAS = 3;
 
 let indiceDupla = 0;
+
 let vezAtual = 1;
 
 let jogadorPista = null;
+
 let jogadorAdivinha = null;
 
-let acertosTurno = 0;
-let passes = 0;
-let anuladas = 0;
-
 let tempo = 60;
+
 let intervalo = null;
 
+let passes = 0;
+
+let acertosTurno = 0;
+
 let indiceDificuldade = 0;
+
 let palavrasUsadas = [];
 
 
 /* =====================================================
-   ELEMENTOS
+   ELEMENTOS HTML
 ===================================================== */
 
-const btnComecar = document.getElementById("btnComecar");
-const btnComecarRodada = document.getElementById("btnComecarRodada");
+const btnComecar =
+    document.getElementById("btnComecar");
 
-const btnAcertou = document.getElementById("btnAcertou");
-const btnPular = document.getElementById("btnPular");
-const btnAnular = document.getElementById("btnAnular");
+const btnComecarRodada =
+    document.getElementById("btnComecarRodada");
 
-const btnTrocarTurno = document.getElementById("btnTrocarTurno");
-const btnProximaDupla = document.getElementById("btnProximaDupla");
+const btnAcertou =
+    document.getElementById("btnAcertou");
 
-const btnContinuar = document.getElementById("btnContinuar");
-const btnNovoJogo = document.getElementById("btnNovoJogo");
+const btnPular =
+    document.getElementById("btnPular");
+
+const btnAnular =
+    document.getElementById("btnAnular");
+
+const btnTrocarTurno =
+    document.getElementById("btnTrocarTurno");
+
+const btnProximaDupla =
+    document.getElementById("btnProximaDupla");
+
+const btnContinuar =
+    document.getElementById("btnContinuar");
+
+const btnNovoJogo =
+    document.getElementById("btnNovoJogo");
 
 
 /* =====================================================
-   TROCAR TELA
+   TROCAR DE TELA
 ===================================================== */
 
 function mostrarTela(id) {
 
     document.querySelectorAll(".tela").forEach(tela => {
+
         tela.classList.remove("ativa");
+
     });
 
-    const tela = document.getElementById(id);
+
+    const tela =
+        document.getElementById(id);
+
 
     if (tela) {
+
         tela.classList.add("ativa");
+
     }
 }
 
 
 /* =====================================================
-   COMEÇAR JOGO
+   INICIAR JOGO
 ===================================================== */
 
-btnComecar.addEventListener("click", iniciarJogo);
+btnComecar.addEventListener(
+    "click",
+    iniciarJogo
+);
 
 
 function iniciarJogo() {
 
     jogadores = [];
 
+
+    /*
+       PEGA OS 6 PARTICIPANTES
+    */
+
     for (let i = 1; i <= 6; i++) {
 
-        const campo = document.getElementById(`nome${i}`);
-        const nome = campo.value.trim();
+        const campo =
+            document.getElementById(`nome${i}`);
+
+
+        const nome =
+            campo.value.trim();
+
 
         if (nome === "") {
 
-            alert(`Digite o nome do participante ${i}.`);
+            alert(
+                `Digite o nome do participante ${i}.`
+            );
+
 
             campo.focus();
 
             return;
         }
 
+
         jogadores.push({
+
             id: i,
+
             nome: nome
+
         });
     }
 
 
-    /* DUPLAS FIXAS */
+    /*
+       =================================================
+       DUPLAS FIXAS
+       =================================================
+
+       NUNCA EMBARALHA.
+
+       DUPLA 1 = PARTICIPANTE 1 + 2
+       DUPLA 2 = PARTICIPANTE 3 + 4
+       DUPLA 3 = PARTICIPANTE 5 + 6
+
+       ESSAS DUPLAS PERMANECEM IGUAIS
+       NAS 3 RODADAS.
+    */
 
     duplas = [
 
         {
-            nome: "DUPLA 1",
-            jogadores: [jogadores[0], jogadores[1]],
-            rodadas: [0, 0, 0],
-            total: 0
+            numero: 1,
+
+            jogadores: [
+                jogadores[0],
+                jogadores[1]
+            ],
+
+            pontos: 0,
+
+            pontosRodadas: []
+
         },
 
-        {
-            nome: "DUPLA 2",
-            jogadores: [jogadores[2], jogadores[3]],
-            rodadas: [0, 0, 0],
-            total: 0
-        },
 
         {
-            nome: "DUPLA 3",
-            jogadores: [jogadores[4], jogadores[5]],
-            rodadas: [0, 0, 0],
-            total: 0
+            numero: 2,
+
+            jogadores: [
+                jogadores[2],
+                jogadores[3]
+            ],
+
+            pontos: 0,
+
+            pontosRodadas: []
+
+        },
+
+
+        {
+            numero: 3,
+
+            jogadores: [
+                jogadores[4],
+                jogadores[5]
+            ],
+
+            pontos: 0,
+
+            pontosRodadas: []
+
         }
 
     ];
 
 
     rodada = 1;
+
     indiceDupla = 0;
+
+    vezAtual = 1;
+
     indiceDificuldade = 0;
+
     palavrasUsadas = [];
 
 
@@ -200,13 +300,21 @@ function prepararRodada() {
 
     clearInterval(intervalo);
 
+
     indiceDupla = 0;
 
-    document.getElementById("numeroRodada").textContent = rodada;
+
+    document.getElementById(
+        "numeroRodada"
+    ).textContent = rodada;
+
 
     mostrarListaDuplas();
 
-    mostrarTela("duplasTela");
+
+    mostrarTela(
+        "duplasTela"
+    );
 }
 
 
@@ -217,31 +325,43 @@ function prepararRodada() {
 function mostrarListaDuplas() {
 
     const container =
-        document.getElementById("duplasContainer");
+        document.getElementById(
+            "duplasContainer"
+        );
+
 
     container.innerHTML = "";
 
 
-    duplas.forEach((dupla, index) => {
+    duplas.forEach(dupla => {
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
 
-        card.className = "dupla";
+
+        card.className =
+            "dupla";
 
 
         card.innerHTML = `
 
-            <h3>${dupla.nome}</h3>
+            <h3>
+                DUPLA ${dupla.numero}
+            </h3>
 
-            <p>${dupla.jogadores[0].nome}</p>
+            <p>
+                ${dupla.jogadores[0].nome}
+            </p>
 
             <p>+</p>
 
-            <p>${dupla.jogadores[1].nome}</p>
-
-            <p style="margin-top:15px; color:#f5c518;">
-                Total: ${dupla.total} pontos
+            <p>
+                ${dupla.jogadores[1].nome}
             </p>
+
+            <strong>
+                TOTAL: ${dupla.pontos} PONTOS
+            </strong>
 
         `;
 
@@ -249,7 +369,6 @@ function mostrarListaDuplas() {
         container.appendChild(card);
 
     });
-
 }
 
 
@@ -257,13 +376,16 @@ function mostrarListaDuplas() {
    COMEÇAR RODADA
 ===================================================== */
 
-btnComecarRodada.addEventListener("click", () => {
+btnComecarRodada.addEventListener(
+    "click",
+    () => {
 
-    indiceDupla = 0;
+        indiceDupla = 0;
 
-    iniciarDupla();
+        iniciarDupla();
 
-});
+    }
+);
 
 
 /* =====================================================
@@ -272,7 +394,14 @@ btnComecarRodada.addEventListener("click", () => {
 
 function iniciarDupla() {
 
-    if (indiceDupla >= duplas.length) {
+    /*
+       Se já passaram pelas 3 duplas,
+       termina a rodada.
+    */
+
+    if (
+        indiceDupla >= duplas.length
+    ) {
 
         finalizarRodada();
 
@@ -280,12 +409,31 @@ function iniciarDupla() {
     }
 
 
-    const dupla = duplas[indiceDupla];
+    /*
+       PEGA A DUPLA ATUAL.
+
+       IMPORTANTE:
+       NÃO HÁ EMBARALHAMENTO.
+    */
+
+    const dupla =
+        duplas[indiceDupla];
 
 
-    jogadorPista = dupla.jogadores[0];
+    /*
+       PRIMEIRO TURNO:
 
-    jogadorAdivinha = dupla.jogadores[1];
+       Jogador 1 dá a pista.
+       Jogador 2 adivinha.
+    */
+
+    jogadorPista =
+        dupla.jogadores[0];
+
+
+    jogadorAdivinha =
+        dupla.jogadores[1];
+
 
     vezAtual = 1;
 
@@ -305,52 +453,81 @@ function iniciarTurno() {
 
     tempo = 60;
 
-    acertosTurno = 0;
-
     passes = 0;
 
-    anuladas = 0;
+    acertosTurno = 0;
 
 
-    const duplaAtual = duplas[indiceDupla];
+    const duplaAtual =
+        duplas[indiceDupla];
 
 
-    document.getElementById("rodadaTopo").textContent = rodada;
+    document.getElementById(
+        "rodadaTopo"
+    ).textContent = rodada;
 
-    document.getElementById("nomeDuplaAtual").textContent =
-        duplaAtual.nome;
+
+    document.getElementById(
+        "nomeDuplaAtual"
+    ).textContent =
+        `DUPLA ${duplaAtual.numero}`;
 
 
-    document.getElementById("jogadorPista").textContent =
+    document.getElementById(
+        "jogadorPista"
+    ).textContent =
         jogadorPista.nome;
 
-    document.getElementById("jogadorAdivinha").textContent =
+
+    document.getElementById(
+        "jogadorAdivinha"
+    ).textContent =
         jogadorAdivinha.nome;
 
 
-    document.getElementById("acertos").textContent = "0";
+    /*
+       Mostra o total de pontos
+       da dupla na rodada.
+    */
 
-    document.getElementById("pulos").textContent = "0";
+    document.getElementById(
+        "acertos"
+    ).textContent =
+        duplaAtual.pontos;
 
-    document.getElementById("anuladas").textContent = "0";
+
+    document.getElementById(
+        "pulos"
+    ).textContent = "0";
 
 
-    document.getElementById("cronometro").textContent =
+    document.getElementById(
+        "cronometro"
+    ).textContent =
         "01:00";
 
 
-    document.getElementById("cronometro")
-        .classList.remove("urgente");
+    document.getElementById(
+        "cronometro"
+    ).classList.remove(
+        "urgente"
+    );
 
 
     btnAcertou.disabled = false;
+
     btnPular.disabled = false;
+
     btnAnular.disabled = false;
 
 
     novaPalavra();
 
-    mostrarTela("jogoTela");
+
+    mostrarTela(
+        "jogoTela"
+    );
+
 
     iniciarCronometro();
 }
@@ -369,6 +546,7 @@ function iniciarCronometro() {
 
         tempo--;
 
+
         atualizarCronometro();
 
 
@@ -381,7 +559,6 @@ function iniciarCronometro() {
         }
 
     }, 1000);
-
 }
 
 
@@ -391,23 +568,31 @@ function iniciarCronometro() {
 
 function atualizarCronometro() {
 
-    const minutos = Math.floor(tempo / 60);
+    const minutos =
+        Math.floor(
+            tempo / 60
+        );
 
-    const segundos = tempo % 60;
+
+    const segundos =
+        tempo % 60;
 
 
-    document.getElementById("cronometro").textContent =
+    document.getElementById(
+        "cronometro"
+    ).textContent =
 
         `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
 
 
     if (tempo <= 10) {
 
-        document.getElementById("cronometro")
-            .classList.add("urgente");
-
+        document.getElementById(
+            "cronometro"
+        ).classList.add(
+            "urgente"
+        );
     }
-
 }
 
 
@@ -420,141 +605,202 @@ function novaPalavra() {
     let lista;
 
 
+    /*
+       Alterna entre fácil,
+       média e difícil.
+    */
+
     if (indiceDificuldade === 0) {
 
         lista = palavrasFaceis;
 
-    } else if (indiceDificuldade === 1) {
+    }
+
+    else if (indiceDificuldade === 1) {
 
         lista = palavrasMedias;
 
-    } else {
+    }
+
+    else {
 
         lista = palavrasDificeis;
 
     }
 
 
-    let disponiveis = lista.filter(
-        palavra => !palavrasUsadas.includes(palavra)
-    );
+    /*
+       Não repete palavra enquanto
+       ainda existirem palavras novas.
+    */
+
+    let disponiveis =
+        lista.filter(
+            palavra =>
+                !palavrasUsadas.includes(
+                    palavra
+                )
+        );
 
 
-    if (disponiveis.length === 0) {
+    if (
+        disponiveis.length === 0
+    ) {
 
-        disponiveis = [...lista];
+        disponiveis =
+            [...lista];
 
     }
 
 
     const palavra =
-
         disponiveis[
             Math.floor(
-                Math.random() * disponiveis.length
+                Math.random() *
+                disponiveis.length
             )
         ];
 
 
-    palavrasUsadas.push(palavra);
+    palavrasUsadas.push(
+        palavra
+    );
 
 
-    document.getElementById("palavra").textContent =
+    document.getElementById(
+        "palavra"
+    ).textContent =
         palavra;
 
 
     indiceDificuldade++;
 
 
-    if (indiceDificuldade >= 3) {
+    if (
+        indiceDificuldade >= 3
+    ) {
 
         indiceDificuldade = 0;
 
     }
-
 }
 
 
 /* =====================================================
    ACERTOU
-   PONTO VAI PARA A DUPLA
 ===================================================== */
 
-btnAcertou.addEventListener("click", () => {
+btnAcertou.addEventListener(
+    "click",
+    () => {
 
-    if (tempo <= 0) return;
-
-
-    const duplaAtual = duplas[indiceDupla];
-
-
-    duplaAtual.rodadas[rodada - 1]++;
-
-    duplaAtual.total++;
+        if (tempo <= 0) return;
 
 
-    acertosTurno++;
+        const duplaAtual =
+            duplas[indiceDupla];
 
 
-    document.getElementById("acertos").textContent =
-        acertosTurno;
+        /*
+           O PONTO É DA DUPLA.
+        */
+
+        duplaAtual.pontos++;
 
 
-    novaPalavra();
+        acertosTurno++;
 
-});
+
+        document.getElementById(
+            "acertos"
+        ).textContent =
+            duplaAtual.pontos;
+
+
+        novaPalavra();
+
+    }
+);
 
 
 /* =====================================================
    PULAR
 ===================================================== */
 
-btnPular.addEventListener("click", () => {
+btnPular.addEventListener(
+    "click",
+    () => {
 
-    if (tempo <= 0) return;
-
-    if (passes >= 3) return;
-
-
-    passes++;
+        if (tempo <= 0) return;
 
 
-    document.getElementById("pulos").textContent =
-        passes;
+        /*
+           Máximo de 3 pulos
+           por turno.
+        */
+
+        if (
+            passes >= 3
+        ) return;
 
 
-    if (passes >= 3) {
+        passes++;
 
-        btnPular.disabled = true;
+
+        document.getElementById(
+            "pulos"
+        ).textContent =
+            passes;
+
+
+        if (
+            passes >= 3
+        ) {
+
+            btnPular.disabled = true;
+
+        }
+
+
+        novaPalavra();
 
     }
-
-
-    novaPalavra();
-
-});
+);
 
 
 /* =====================================================
    PALAVRA ANULADA
-   NÃO DÁ PONTO E NÃO CONTA COMO PULO
+=====================================================
+
+   Quando o participante:
+
+   - fala a própria palavra;
+   - fala parte da palavra;
+   - usa uma palavra proibida;
+   - ou dá uma pista considerada inválida;
+
+   o juiz clica em:
+
+   🚫 PALAVRA ANULADA
+
+   NÃO GANHA PONTO.
+   NÃO PERDE PONTO.
+   NÃO CONTA COMO PULO.
+
+   Apenas troca a palavra.
 ===================================================== */
 
-btnAnular.addEventListener("click", () => {
+btnAnular.addEventListener(
+    "click",
+    () => {
 
-    if (tempo <= 0) return;
-
-
-    anuladas++;
-
-
-    document.getElementById("anuladas").textContent =
-        anuladas;
+        if (tempo <= 0) return;
 
 
-    novaPalavra();
+        novaPalavra();
 
-});
+    }
+);
 
 
 /* =====================================================
@@ -565,78 +811,111 @@ function finalizarTurno() {
 
     clearInterval(intervalo);
 
+
     tempo = 0;
 
 
-    document.getElementById("cronometro").textContent =
+    document.getElementById(
+        "cronometro"
+    ).textContent =
         "00:00";
 
 
-    document.getElementById("cronometro")
-        .classList.remove("urgente");
+    document.getElementById(
+        "cronometro"
+    ).classList.remove(
+        "urgente"
+    );
 
 
     btnAcertou.disabled = true;
+
     btnPular.disabled = true;
+
     btnAnular.disabled = true;
 
 
-    /* PRIMEIRO TURNO:
-       TROCA OS PAPÉIS DA MESMA DUPLA */
+    /*
+       PRIMEIRO TURNO TERMINOU.
 
-    if (vezAtual === 1) {
+       A MESMA DUPLA CONTINUA.
 
-        const antigoPista = jogadorPista;
-        const antigoAdivinha = jogadorAdivinha;
+       Só troca quem dá pista
+       e quem adivinha.
+    */
+
+    if (
+        vezAtual === 1
+    ) {
+
+        document.getElementById(
+            "jogadorSai"
+        ).textContent =
+            jogadorAdivinha.nome;
 
 
-        document.getElementById("jogadorSai").textContent =
-            antigoAdivinha.nome;
-
-        document.getElementById("jogadorEntra").textContent =
-            antigoPista.nome;
-
-
-        document.getElementById("mensagemTroca").textContent =
-            "Agora os jogadores trocam de função e a dupla continua jogando.";
+        document.getElementById(
+            "jogadorEntra"
+        ).textContent =
+            jogadorPista.nome;
 
 
-        mostrarTela("trocaDuplaTela");
+        document.getElementById(
+            "mensagemTroca"
+        ).textContent =
+            "Agora troquem as funções. A dupla continua a mesma.";
+
+
+        mostrarTela(
+            "trocaDuplaTela"
+        );
+
 
         return;
     }
 
 
-    /* SEGUNDO TURNO TERMINOU */
+    /*
+       SEGUNDO TURNO TERMINOU.
+
+       Agora a dupla inteira terminou.
+    */
 
     prepararTrocaDeDupla();
-
 }
 
 
 /* =====================================================
-   TROCAR FUNÇÕES DA DUPLA
+   TROCAR FUNÇÕES
 ===================================================== */
 
-btnTrocarTurno.addEventListener("click", () => {
+btnTrocarTurno.addEventListener(
+    "click",
+    () => {
 
-    const temporario = jogadorPista;
-
-    jogadorPista = jogadorAdivinha;
-
-    jogadorAdivinha = temporario;
-
-
-    vezAtual = 2;
+        const temporario =
+            jogadorPista;
 
 
-    iniciarTurno();
+        jogadorPista =
+            jogadorAdivinha;
 
-});
+
+        jogadorAdivinha =
+            temporario;
+
+
+        vezAtual = 2;
+
+
+        iniciarTurno();
+
+    }
+);
 
 
 /* =====================================================
-   PAUSA ENTRE DUPLAS
+   PREPARAR PRÓXIMA DUPLA
 ===================================================== */
 
 function prepararTrocaDeDupla() {
@@ -644,51 +923,91 @@ function prepararTrocaDeDupla() {
     clearInterval(intervalo);
 
 
-    const duplaAnterior = duplas[indiceDupla];
+    const duplaAnterior =
+        duplas[indiceDupla];
 
-    const proxima = duplas[indiceDupla + 1];
+
+    const proxima =
+        duplas[indiceDupla + 1];
 
 
-    document.getElementById("duplaAnterior").textContent =
+    document.getElementById(
+        "duplaAnterior"
+    ).textContent =
 
-        `${duplaAnterior.nome}: ` +
+        `DUPLA ${duplaAnterior.numero}: ` +
+
         duplaAnterior.jogadores
-            .map(jogador => jogador.nome)
+            .map(
+                jogador =>
+                    jogador.nome
+            )
             .join(" + ");
 
 
+    /*
+       Se ainda existe outra dupla,
+       mostra a próxima.
+
+       IMPORTANTE:
+       a próxima dupla é sempre
+       a dupla cadastrada originalmente.
+    */
+
     if (proxima) {
 
-        document.getElementById("proximaDupla").textContent =
+        document.getElementById(
+            "proximaDupla"
+        ).textContent =
 
-            `${proxima.nome}: ` +
+            `DUPLA ${proxima.numero}: ` +
+
             proxima.jogadores
-                .map(jogador => jogador.nome)
+                .map(
+                    jogador =>
+                        jogador.nome
+                )
                 .join(" + ");
 
 
-        mostrarTela("trocaProximaDuplaTela");
+        btnProximaDupla.textContent =
+            "INICIAR PRÓXIMA DUPLA";
 
-    } else {
+
+        mostrarTela(
+            "trocaProximaDuplaTela"
+        );
+
+
+    }
+
+    else {
+
+        /*
+           As 3 duplas terminaram
+           seus dois turnos.
+        */
 
         finalizarRodada();
 
     }
-
 }
 
 
 /* =====================================================
-   PRÓXIMA DUPLA
+   BOTÃO PRÓXIMA DUPLA
 ===================================================== */
 
-btnProximaDupla.addEventListener("click", () => {
+btnProximaDupla.addEventListener(
+    "click",
+    () => {
 
-    indiceDupla++;
+        indiceDupla++;
 
-    iniciarDupla();
+        iniciarDupla();
 
-});
+    }
+);
 
 
 /* =====================================================
@@ -700,129 +1019,189 @@ function finalizarRodada() {
     clearInterval(intervalo);
 
 
+    /*
+       Guarda quantos pontos
+       cada dupla fez nesta rodada.
+    */
+
+    duplas.forEach(
+        dupla => {
+
+            dupla.pontosRodadas.push(
+                dupla.pontos
+            );
+
+        }
+    );
+
+
     mostrarResultado();
-
-
 }
 
 
 /* =====================================================
-   MOSTRAR RESULTADO
+   RESULTADO DA RODADA
 ===================================================== */
 
 function mostrarResultado() {
 
     const container =
-        document.getElementById("resultadoContainer");
+        document.getElementById(
+            "resultadoContainer"
+        );
 
 
     container.innerHTML = "";
 
 
-    const ranking = [...duplas].sort(
-        (a, b) => b.total - a.total
-    );
+    duplas.forEach(
+        dupla => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
 
 
-    ranking.forEach((dupla, index) => {
-
-        const item = document.createElement("div");
-
-        item.className = "resultado-item";
+            item.className =
+                "resultado-item";
 
 
-        if (index === 0) {
+            const pontosRodada =
+                dupla.pontosRodadas[
+                    dupla.pontosRodadas.length - 1
+                ];
 
-            item.classList.add("primeiro");
 
-        }
+            const totalAteAgora =
+                dupla.pontosRodadas.reduce(
+                    (
+                        total,
+                        pontos
+                    ) =>
+                        total + pontos,
+                    0
+                );
 
 
-        item.innerHTML = `
+            item.innerHTML = `
 
-            <div>
+                <span>
 
-                <span>${dupla.nome}</span>
+                    DUPLA ${dupla.numero}
 
-                <small>
+                    <br>
+
                     ${dupla.jogadores[0].nome}
                     +
                     ${dupla.jogadores[1].nome}
-                </small>
 
-                <small>
-                    R1: ${dupla.rodadas[0]} |
-                    R2: ${dupla.rodadas[1]} |
-                    R3: ${dupla.rodadas[2]}
-                </small>
+                    <br>
 
-            </div>
+                    <small>
+                        Rodada ${rodada}: ${pontosRodada} pontos
+                    </small>
 
-            <strong>${dupla.total} pts</strong>
-
-        `;
+                </span>
 
 
-        container.appendChild(item);
+                <strong>
 
-    });
+                    TOTAL:
+                    ${totalAteAgora}
+
+                </strong>
+
+            `;
 
 
-    if (rodada < totalRodadas) {
+            container.appendChild(
+                item
+            );
 
-        document.getElementById("tituloResultado").textContent =
-            `FIM DA RODADA ${rodada}!`;
+        }
+    );
 
-        document.getElementById("subtituloResultado").textContent =
-            "Confira o placar acumulado e prepare-se para a próxima rodada.";
+
+    if (
+        rodada === TOTAL_RODADAS
+    ) {
+
+        btnContinuar.textContent =
+            "VER RESULTADO FINAL";
+
+    }
+
+    else {
 
         btnContinuar.textContent =
             "PRÓXIMA RODADA";
 
-    } else {
-
-        document.getElementById("tituloResultado").textContent =
-            "FIM DO MEGA SHOW!";
-
-        document.getElementById("subtituloResultado").textContent =
-            "Confira o resultado final das três rodadas.";
-
-        btnContinuar.textContent =
-            "VER DUPLA CAMPEÃ";
-
     }
 
 
-    mostrarTela("resultadoTela");
-
+    mostrarTela(
+        "resultadoTela"
+    );
 }
 
 
 /* =====================================================
-   CONTINUAR
+   PRÓXIMA RODADA
 ===================================================== */
 
-btnContinuar.addEventListener("click", () => {
+btnContinuar.addEventListener(
+    "click",
+    () => {
 
-    if (rodada < totalRodadas) {
+        /*
+           Depois da terceira rodada,
+           vai para o resultado final.
+        */
+
+        if (
+            rodada === TOTAL_RODADAS
+        ) {
+
+            mostrarCampeao();
+
+            return;
+
+        }
+
 
         rodada++;
 
+
+        /*
+           Zera somente o placar
+           da rodada atual.
+
+           Os pontos anteriores
+           continuam salvos em
+           pontosRodadas.
+        */
+
+        duplas.forEach(
+            dupla => {
+
+                dupla.pontos = 0;
+
+            }
+        );
+
+
         indiceDificuldade = 0;
+
 
         prepararRodada();
 
-    } else {
-
-        mostrarCampeao();
-
     }
-
-});
+);
 
 
 /* =====================================================
-   CAMPEÃ
+   RESULTADO FINAL
 ===================================================== */
 
 function mostrarCampeao() {
@@ -830,68 +1209,134 @@ function mostrarCampeao() {
     clearInterval(intervalo);
 
 
-    const maiorPontuacao = Math.max(
-        ...duplas.map(dupla => dupla.total)
+    /*
+       Calcula o total das
+       3 rodadas.
+    */
+
+    duplas.forEach(
+        dupla => {
+
+            dupla.totalFinal =
+                dupla.pontosRodadas.reduce(
+                    (
+                        total,
+                        pontos
+                    ) =>
+                        total + pontos,
+                    0
+                );
+
+        }
     );
 
 
-    const campeas = duplas.filter(
-        dupla => dupla.total === maiorPontuacao
-    );
+    /*
+       Encontra a maior pontuação.
+    */
+
+    const maiorPontuacao =
+        Math.max(
+            ...duplas.map(
+                dupla =>
+                    dupla.totalFinal
+            )
+        );
 
 
-    /* CASO TENHA EMPATE */
+    /*
+       Pega a dupla com a maior
+       pontuação.
 
-    if (campeas.length > 1) {
+       Em caso de empate,
+       mostra empate em vez
+       de misturar jogadores.
+    */
 
-        document.querySelector(".titulo-campeao").textContent =
+    const duplasEmpatadas =
+        duplas.filter(
+            dupla =>
+                dupla.totalFinal ===
+                maiorPontuacao
+        );
+
+
+    if (
+        duplasEmpatadas.length > 1
+    ) {
+
+        const nomes =
+            duplasEmpatadas
+                .map(
+                    dupla =>
+                        `DUPLA ${dupla.numero}`
+                )
+                .join(" × ");
+
+
+        document.getElementById(
+            "campeaoNome"
+        ).textContent =
             "EMPATE!";
 
-        document.getElementById("campeaoNome").textContent =
-            campeas.map(dupla => dupla.nome).join(" E ");
+
+        document.getElementById(
+            "campeaoIntegrantes"
+        ).textContent =
+            nomes;
 
 
-        document.getElementById("campeaoJogadores").textContent =
-            campeas
-                .map(dupla =>
-                    dupla.jogadores
-                        .map(jogador => jogador.nome)
-                        .join(" + ")
-                )
-                .join("  |  ");
+        document.getElementById(
+            "campeaoPontos"
+        ).textContent =
+            `${maiorPontuacao} PONTOS CADA`;
 
 
-        document.getElementById("campeaoPontos").textContent =
-            `${maiorPontuacao} PONTOS`;
+        mostrarTela(
+            "campeaoTela"
+        );
 
 
-    } else {
-
-        const campea = campeas[0];
-
-
-        document.querySelector(".titulo-campeao").textContent =
-            "DUPLA CAMPEÃ";
-
-
-        document.getElementById("campeaoNome").textContent =
-            campea.nome;
-
-
-        document.getElementById("campeaoJogadores").textContent =
-            campea.jogadores
-                .map(jogador => jogador.nome)
-                .join(" + ");
-
-
-        document.getElementById("campeaoPontos").textContent =
-            `${campea.total} PONTOS`;
-
+        return;
     }
 
 
-    mostrarTela("campeaoTela");
+    const campea =
+        duplasEmpatadas[0];
 
+
+    /*
+       Mostra somente a dupla vencedora.
+    */
+
+    document.getElementById(
+        "campeaoNome"
+    ).textContent =
+        `DUPLA ${campea.numero}`;
+
+
+    document.getElementById(
+        "campeaoIntegrantes"
+    ).textContent =
+
+        campea.jogadores
+            .map(
+                jogador =>
+                    jogador.nome
+            )
+            .join(" + ");
+
+
+    document.getElementById(
+        "campeaoPontos"
+    ).textContent =
+
+        `${campea.totalFinal} PONTOS NO TOTAL`;
+
+
+    mostrarTela(
+        "campeaoTela"
+    );
 }
 
 
@@ -899,8 +1344,11 @@ function mostrarCampeao() {
    NOVO JOGO
 ===================================================== */
 
-btnNovoJogo.addEventListener("click", () => {
+btnNovoJogo.addEventListener(
+    "click",
+    () => {
 
-    location.reload();
+        location.reload();
 
-});
+    }
+);
